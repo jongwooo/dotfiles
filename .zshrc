@@ -51,3 +51,4 @@ alias tp="terraform plan"
 alias ta="terraform apply -auto-approve"
 alias td="terraform destroy"
 alias tlock="terraform force-unlock"
+alias awspf='export AWS_PROFILE=$(sed -n -E "s/\[(profile )?([^][]+)\]?\s*$/\2/p" ~/.aws/credentials ~/.aws/config | sort -rg | uniq | fzf)'
