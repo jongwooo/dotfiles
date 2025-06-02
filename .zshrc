@@ -34,6 +34,10 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export GVM_DIR="$HOME/.gvm"
 [ -s "$GVM_DIR/scripts/gvm" ] && source "$GVM_DIR/scripts/gvm"
 
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 export KREW_DIR="${KREW_ROOT:-"$HOME/.krew"}"
 [ -s "$KREW_DIR/bin/" ] && export PATH="$KREW_ROOT/bin:$PATH"
 
