@@ -8,6 +8,7 @@
 	editor = nvim
 	autocrlf = input
  	excludesfile = ~/.gitignore_global
+	filemode = false
 [commit]
 	gpgsign = true
 [gpg]
@@ -76,3 +77,12 @@
  	sw = switch
 [includeIf "gitdir:~/Workspace/ssafy/"]
 	path = .gitconfig_work
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[http]
+	postBuffer = 157286400
+[credential "https://chromium.googlesource.com"]
+	helper = luci
