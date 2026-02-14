@@ -1,0 +1,79 @@
+[user]
+	name = Jongwoo Han
+	email = jongwooo.han@gmail.com
+	username = jongwooo
+[gitreview]
+	username = jongwooo
+[core]
+	editor = nvim
+	autocrlf = input
+ 	excludesfile = ~/.gitignore_global
+	filemode = false
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+[pull]
+	ff = only
+[init]
+	defaultBranch = main
+[merge]
+	tool = vimdiff
+[color]
+	ui = auto
+[alias]
+	a = "!git diff-select | xargs git add"
+	b = branch
+	b0 = "!git branch | awk '/^\\*/{print $2}'"
+	back = "!git branch backup-`git b0`"
+	bd = branch -d
+	bD = branch -D
+	bselect = "!# Select branch with preview; \n\
+		f() { \
+			_height=$(stty size | awk '{print $1}');\
+			git branch | egrep -v '^\\*' | fzf --preview \"git l {1} | head -n $_height\"; \
+		}; f"
+	c = commit
+	ch = "!git checkout $(git bselect)"
+	ci = commit --signoff
+	cm = commit -m
+	co = checkout
+	cob = checkout -b
+	diff-info = "!# Print diff report.;\n\
+		fileA=/tmp/git-s-$(uuidgen); \
+		fileB=/tmp/git-diff-$(uuidgen); \
+		git st | awk '{print $2,$1}' > $fileA; \
+		git diff --numstat | awk '{print $3,$1,$2}' > $fileB; \
+		join -t' ' -a 1 $fileA $fileB | awk '{print $2, \"(+\"$3 \",-\"$4\")\", $1}' | sed 's/(+,-)/./; s/^\\([^?]\\) *\\./\\1 STAGED/' | column -t -s' ' ; \
+		rm -f $fileA $fileB;"
+	diff-select = "!# Select changed files to add them.;\n\
+		f() { \
+			git diff-info \
+			| egrep -v '[^?] *STAGED ' \
+			| fzf -m --header \"$(git diff --shortstat)\" --preview \
+				\"if [[ {1} == '??' ]]; then bat {3}; else git diff --color=always {3}; fi\" \
+			| awk '{print $3}'; \
+		}; f"
+	diff-unselect = "!# Select staged files to unstage them.;\n\
+		f() { \
+			| egrep '[^?] *STAGED ' \
+			| fzf -m --header \"$(git diff --shortstat)\" --preview \
+				\"if [[ {1} == '??' ]]; then pygmentize {3}; else git diff --color=always --cached {3}; fi\" \
+			| awk '{print $3}'; \
+		}; f"
+	gone = "!git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git bD"
+	l = "log \
+		--color --graph --decorate \
+		--date=format:'%Y-%m-%d' \
+		--abbrev-commit \
+		--pretty=format:'%C(red)%h%C(auto)%d %s %C(green)(%cr)%C(bold blue) %an'"
+	m = merge
+	pl = pull
+	ps = push
+	psu = "!git push --set-upstream origin `git b0`"
+	rt = restore
+ 	s = status
+	st = status -s
+ 	sw = switch
+[http]
+	postBuffer = 157286400

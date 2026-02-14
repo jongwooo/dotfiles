@@ -1,0 +1,9 @@
+[ -s "$ZSH_HANGUL_DIR/zsh-hangul.plugin.zsh" ] && source "$ZSH_HANGUL_DIR/zsh-hangul.plugin.zsh"
+
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+[ -s "$GVM_DIR/scripts/gvm" ] && source "$GVM_DIR/scripts/gvm"
+
+[ $commands[kubectl] ] && source <(kubectl completion zsh)
+[ -s "$KREW_DIR/bin/" ] && export PATH="$KREW_ROOT/bin:$PATH"
