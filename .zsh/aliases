@@ -7,6 +7,19 @@ alias ts="tmux new-session -s"
 alias tks="tmux kill-session -t"
 alias tkall="tmux kill-server"
 function ta() { tmux attach -t "$1" 2>/dev/null || tmux new-session -s "$1"; }
+function t6() {
+    tmux new-session -d -s six
+    tmux split-window -h -t six
+    tmux split-window -h -t six
+    tmux select-layout -t six even-horizontal
+    tmux select-pane -t six:0.0
+    tmux split-window -v -t six
+    tmux select-pane -t six:0.2
+    tmux split-window -v -t six
+    tmux select-pane -t six:0.4
+    tmux split-window -v -t six
+    tmux attach -t six
+}
 
 alias k="kubectl"
 alias kdry="kubectl --dry-run=client -o yaml"
