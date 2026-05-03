@@ -7,6 +7,23 @@ alias ts="tmux new-session -s"
 alias tks="tmux kill-session -t"
 alias tkall="tmux kill-server"
 function ta() { tmux attach -t "$1" 2>/dev/null || tmux new-session -s "$1"; }
+function t3() {
+    local name="three_$$"
+    tmux new-session -d -s "$name"
+    tmux split-window -h -t "$name"
+    tmux split-window -h -t "$name"
+    tmux select-layout -t "$name" even-horizontal
+    tmux attach -t "$name"
+}
+function t4() {
+    local name="four_$$"
+    tmux new-session -d -s "$name"
+    tmux split-window -t "$name"
+    tmux split-window -t "$name"
+    tmux split-window -t "$name"
+    tmux select-layout -t "$name" tiled
+    tmux attach -t "$name"
+}
 function t6() {
     local name="six_$$"
     tmux new-session -d -s "$name"
